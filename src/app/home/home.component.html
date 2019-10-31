@@ -1,0 +1,282 @@
+
+<div class="container-fluid bg">
+        <div class="col-xs-12 col-sm-12 col-md-9 p-rl">
+                  
+                <!--request row start-->
+                <div class="col-sm-12 m-top request">
+                    <span (click)="openModal(template)">Request for home in different locality</span>    
+                </div>
+                
+                <!--request row end-->
+
+                <!--choice heading row start-->
+                <div class="col-sm-12 make">Make your Choice</div>
+                <!--choice heading row end-->
+
+                <!--Search Drop Down start -->
+                <div class="col-sm-12 search m-t-20">
+                        <div class="select form-group fgm-r">
+                                <select class="form-control" id="sel1 country" *ngIf="getCountries()" [(ngModel)]="selectedCountry" (change)="onSelectCountry($event.target.value)">
+                                                <option value="0">Select Home Type</option>   
+                                                <option *ngFor="let country of getCountries()" value= {{country.id}}>{{country.name}}</option>
+                                </select>
+                        </div>
+                        <div class="select form-group fgm-r">
+                                <select class="form-control" id="sel1 state" *ngIf="states" [(ngModel)]="selectedState" (change)="onSelectState($event.target.value)" class="form-control">
+                                                <option disabled value="0">Select City</option>
+                                                <option *ngFor="let state of states" value= {{state.id}}>{{state.name}}</option>
+                                </select>
+                        </div>
+
+                        <div class="select form-group">
+                                <select class="form-control" id="sel1 city" (change)="sortbyLocality(cityname)" [(ngModel)]="cityname" name="cityname">
+                                                <option disabled value="">Select Locality</option>
+                                                <option *ngFor="let city of cities" [value]= city.name>{{city.name}}</option>
+                                </select> 
+                        </div>
+                </div>
+                <!--Search Drop Down End -->
+
+                <!--map-->
+                 <div class="col-md-12 m-t-30">
+                                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15155907.117779676!2d72.16862489471619!3d21.966336400327002!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x30635ff06b92b791%3A0xd78c4fa1854213a6!2sIndia!5e0!3m2!1sen!2sin!4v1571227884372!5m2!1sen!2sin" width="100%" height="350" frameborder="0" style="border:0;" allowfullscreen=""></iframe>                 
+                  </div>
+                <!--map-->
+                <!--questions-->
+                <div class="col-sm-12 question">
+
+                        
+                        <div class="col-md-6 question-sub">
+                                <img src="../../assets/que.png">
+                                <a routerLink="../formoyehomes">&nbsp;&nbsp;Why get homes from OyeHomes</a> 
+                                
+                        </div>
+                        <div class="col-md-6 question-sub">
+                               <img src="../../assets/que.png">
+                               <a routerLink="../tooyehomes">&nbsp;&nbsp;Why give homes to OyeHomes</a>
+                        </div>
+                </div> 
+                <!--questions-->
+        </div>
+        <!--Search results-->
+        <div class="col-xs-12 col-sm-12 col-md-3 np search-results">
+        <p class="featured">Featured Properties</p> 
+
+        <div>
+            <div class="col-sm-12 np flat-list-row" *ngFor="let flatDetail of flatDetailList | orderBy: order :true | slice:0:3">
+                <div class="search-res-row">
+                    <div><img class="apimage" [src]="flatDetail.appImage[0]">
+                        <span class="ima-count" (click)="openModal1(gallery,flatDetail.appId,flatDetail.appName)" name="appname">{{flatDetail.appImage.length}} Photos</span></div>
+                    <div style="flex-basis: 200px" class="f-des">
+                        <div>
+                                <span class="price"><span class="rupee">₹&nbsp;</span>{{flatDetail.price}}</span>
+                                <span class="rent">{{flatDetail.rentType}}</span>
+                        </div>
+                            <p class="f-add">{{flatDetail.appName}}</p>
+                            <p class="ap-name">{{flatDetail.address}} </p>  
+                    </div>
+                </div>
+                <div class="flat-cont-details">
+                            <button class="cont-bt" (click)="openModal2(contact)">Contact now</button>
+                            <a>View Details</a>
+                </div>
+                
+            </div>
+            <div class="view-all"><a routerLink="../viewdetails">View All Homes</a></div>
+        </div>
+        </div>
+        <!--Search results-->
+
+</div>
+
+
+
+
+
+<ng-template #template>
+                <div class="modal-header" style="background: #82808026">
+                  <h4 class="modal-title" style="text-align:center">Request a Call</h4>
+                  <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <div class="container form-cont">
+                    <!-- <p class="form-titles">Contact Details</p> -->
+                    <label>Contact Details</label>
+                    <!--contact details part-->
+                    <div class="col-sm-12 contact-details">
+                        <div class="form-group request-form-field" style="width: 100%">
+                                <label for="exampleInputEmail1">Name <span class="mandate">*</span></label>
+                                <input name="req_name" type="text" class="form-control"  [(ngModel)]="req_name" #reqnameControl='ngModel' aria-describedby="emailHelp" required>
+                                <p class="alerts" *ngIf="reqnameControl.invalid && reqnameControl.touched">Name field is required</p>
+                        </div>
+                        <div class="form-group request-form-field">
+                                <label for="exampleInputEmail1">Email <span class="mandate">*</span></label>
+                                <input name="req_email" type="text" class="form-control"  [(ngModel)]="req_email" #reqemailControl='ngModel'  type="email" class="form-control" pattern="[a-zA-Z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" aria-describedby="emailHelp" required>
+                                <p class="alerts" *ngIf="reqemailControl.invalid && reqemailControl.touched">Email-id is invalid</p>
+                        </div>
+                        <div class="form-group request-form-field">
+                                        <label for="exampleInputEmail1">Phone <span class="mandate">*</span></label>
+                                        <input type="text" name="reqMobnumber" minlength="10" maxlength="10" [(ngModel)]="reqMobnumber" #reqnumberControl="ngModel" class="form-control" required (keypress)=_keyPress($event)>
+                                        <p type="tel" pattern="[0-9]+"  class="alerts" *ngIf="reqnumberControl.invalid && reqnumberControl.touched">Valid 10 digit mobile number is required</p>
+                        </div>
+                    </div>
+                   <!--contact details part-->
+
+                   <!--Specifications details part-->
+                   <div class="col-sm-12 np">
+                    <h4 class="modal-title modal-subtitle">Specifications</h4>
+                        <div class="form-group request-form-field">
+                                <label for="exampleInputEmail1">Select City</label>                   
+                                <select class="form-control" name="reqcity" [(ngModel)]="reqcity">
+                                        <option value="Bangalore">Bangalore</option>
+                                        
+                                </select>
+                        </div>
+                        <div class="form-group request-form-field">
+                                <label for="exampleInputEmail1">Select Locality</label>                   
+                                <select class="form-control" name="locality" [(ngModel)]="locality">
+                                        <option>Jp Nagar 7th Phase </option>
+                                        <option>Jp Nagar 8th Phase</option>
+                                        <option>Manyatha</option>
+                                        <option>Arekere</option>
+                                        <option>Electronic City Phase1</option>
+                                        <option>Haralur</option>
+                                        <option>Bilekahalli </option>
+                                        <option>Kanakpura Road </option>
+                                        <option>White Field </option>
+                                        <option>Hosa Road </option>
+                                        <option>Jp Nagar 5th Phase</option>
+                                        <option>Frazer town, Nethaji road</option>
+                                </select>
+                        </div>
+                        <div class="form-group request-form-field">
+                                <label for="exampleInputEmail1">Property Type</label>                   
+                                <div class="request-form-field property-type">
+                                   <button type="button" class="btn btn-warning" (click)="getproptype('Office')">Office</button>
+                                   <button type="button" class="btn btn-warning" (click)="getproptype('Shop')">Shop</button>
+                                   <button type="button" class="btn btn-warning" (click)="getproptype('Showroom')">Showroom</button>
+                                   <button type="button" class="btn btn-warning" (click)="getproptype('Shed')">Industrial Shed</button>
+                                   <button type="button" class="btn btn-warning" (click)="getproptype('Showroom')">Industrial Showroom</button>
+                                   
+                                </div>        
+                        </div>
+
+                        <div class="form-group request-form-field">
+                                        <label for="exampleInputEmail1">Price Range</label>                   
+                                        <section class="range-slider">
+                                                        <div class="slide-range">
+                                                            <input (input)="getVals()" id="price-min" value="5" min="0" max="15" step="0.5" type="range" class="slider">
+                                                            <input (input)="getVals()" value="10" min="0" max="15" step="0.5" type="range" class="slider">
+                                                        </div>
+                                                        <div class="range-val">
+                                                                <span class="rangeValues">₹&nbsp;{{slide1}}</span>
+                                                                <span class="rangeValues1">₹&nbsp;{{slide2}}</span>
+                                                        </div> 
+                                        </section>
+                        </div>
+                        <div class="form-group request-form-field">
+                                        <label for="exampleInputEmail1">Built Up Area</label>                   
+                                        <section class="range-slider">
+                                                        <div class="slide-range">
+                                                            <input (input)="getVals()" id="price-min" value="5" min="0" max="15" step="0.5" type="range" class="slider">
+                                                            <input (input)="getVals()" value="10" min="0" max="15" step="0.5" type="range" class="slider">
+                                                        </div>
+                                                        <div class="range-val">
+                                                                        <span class="rangeValues">{{slide1}}</span>
+                                                                        <span class="rangeValues1">{{slide2}}</span>
+                                                        </div> 
+                                        </section>
+                       </div>
+
+                        <div class="form-group request-form-field">
+                                        <label for="exampleInputEmail1">Bedrooms</label>                   
+                                        <div class="request-form-field property-type">
+                                           <input type="button" class="btn btn-warning active" (click)="getbedroomtype('1+')" value="1+"/>
+                                           <input type="button" class="btn btn-warning" (click)="getbedroomtype('2+')" value="2+"/>
+                                           <input type="button" class="btn btn-warning" (click)="getbedroomtype('3+')" value="3+"/>
+                                           <input type="button" class="btn btn-warning" (click)="getbedroomtype('4+')" value="4+"/>
+                                           <input type="button" class="btn btn-warning" (click)="getbedroomtype('5+')" value="5+"/>
+                                        </div>        
+                        </div>
+                        <div class="form-group request-form-field">
+                                        <label for="exampleInputEmail1">Phasing</label> 
+                                        <div class="check-opt">
+                                                <label><input type="radio" id="checkbox-1-1" class="regular-checkbox" name="phasing"  value="East" [(ngModel)]="phasing" checked/>East</label>
+                                                <label><input type="radio" id="checkbox-1-1" class="regular-checkbox" name="phasing" value="East North" [(ngModel)]="phasing"/>East North</label>
+                                        </div> 
+                        </div>
+                        <div class="form-group request-form-field">
+                                        <label for="exampleInputEmail1">Parking</label>                   
+                                        <div class="check-opt">
+                                                        <label><input type="radio" id="checkbox-1-1" class="regular-checkbox" name="Parking" value="Public" [(ngModel)]="Parking"/>Public</label>
+                                                        <label><input type="radio" id="checkbox-1-1" class="regular-checkbox" name="Parking" value="Reserved" [(ngModel)]="Parking" checked/>Reserved</label>
+                                        </div> 
+                        </div>
+                        <div class="form-group request-form-field">
+                                        <label for="exampleInputEmail1">Furnishing</label>                   
+                                        <div class="check-opt">
+                                                        <label><input type="radio" id="checkbox-1-1" class="regular-checkbox" name="Furnishing" value="Public" [(ngModel)]="Furnishing" checked/>Public</label>
+                                                        <label><input type="radio" id="checkbox-1-1" class="regular-checkbox" name="Furnishing" value="Reserved" [(ngModel)]="Furnishing" />Reserved</label>
+                                        </div> 
+                        </div>
+                        
+                  </div>
+                  <div><button class="cont-bt" (click)="requestCall()">Submit</button></div>
+                  <!--Specifications details part-->
+                  </div>
+                </div>
+</ng-template>
+
+
+<!--Gallery pop up box-->
+<ng-template #gallery >
+        <div class="modal-header" style="background: #252424">
+          <h4 class="modal-title" style="text-align:center;background: #252424;color:#FFB81A">Gallery - {{appName}} : {{associationservice.AppRoomName}}</h4>
+          <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body" style="background: #252424;padding:0px">
+          <div class="container-fluid form-cont" style="background: #131212b9">
+                  <app-maps [appId]='appId' [appName]='appName'></app-maps>
+          </div>
+        </div>
+</ng-template>
+<!--Gallery pop up box-->
+
+<!--Contact us pop up box-->
+<ng-template #contact id="contact_pop">
+  
+                <div class="modal-header" style="background: #82808026">
+                  <h4 class="modal-title" style="text-align:center">Contact Us</h4>
+                  <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <div class="container">
+                    
+                    <div class="col-sm-12 np">
+                        <div class="form-group request-form-field" style="width: 100%">
+                                <label for="exampleInputEmail1">Name</label>
+                                <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                        </div>
+                        <div class="form-group request-form-field">
+                                <label for="exampleInputEmail1">Email</label>
+                                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                        </div>
+                        <div class="form-group request-form-field">
+                                        <label for="exampleInputEmail1">Phone</label>
+                                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                        </div>
+                    </div>
+                   <!--contact details part-->
+                   <div><button class="cont-bt">Contact Now</button></div>
+               
+                  </div>
+                </div>
+
+</ng-template>
+<!--Contact us pop up box-->

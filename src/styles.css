@@ -1,1 +1,237 @@
 /* You can add global styles to this file, and also import other style files */
+body{ background: url('assets/bg.png');background-position: 100% 30%;background-repeat: no-repeat;background-size: contain;overflow-x: hidden;}
+body,h1,h2,h3,h4,h5,h6{font-family: 'Quicksand', sans-serif !important;}
+.title-orange{color: #FFB81A;margin: 0px 0px;font-size: 36px;    font-weight: 300;}
+.wel{font-size: 16px;margin: 0px;}
+.np{padding:0px !important}
+.orange{color: #FFB81A;}
+a{color: #f7b844 !important;}
+.cont-middle{text-align: center}
+.p-40{padding: 40px 0px;}
+.close {color: #f7b844 !important;text-shadow: 0 1px 0 #f7b844 !important;opacity: 10 !important;}
+.cont-bt{background: #FFB81A;padding: 8px 17px;color: #fff;border: none;font-weight: 600;}
+.carousel .carousel-item{cursor: pointer;}
+.btn-warning{
+  color: #0a0a0a !important;
+  background-color: #ffffff !important;
+  border-color: #eea236 !important;
+  border-radius: 30px !important;
+  margin: 3px 5px;
+  border-radius: 30px;
+  padding: 7px 23px;
+  box-shadow: none !important;
+}
+.btn-warning.active{
+  color: #fff;
+  background-color: #eea236 !important;
+  background-image: none;
+  border-color: #f7b844;
+}
+
+section.range-slider {
+  position: relative;
+  width: 100%;
+  height: 70px;
+  text-align: center;
+}
+.slide-range{    display: flex;
+flex-direction: column;
+margin: 0px 0px 30px 0px}
+.range-val{display: flex;
+justify-content: space-between;}
+.rangeValues,.rangeValues1{
+border: 1px solid grey;
+padding: 6px 17px;
+width: 77px;
+}
+section.range-slider input {
+  pointer-events: none;
+  position: absolute;
+  overflow: initial;
+  left: 0;
+  top: 15px;
+  width: 100%;
+  height: 4px;
+  margin: 0;
+  padding: 0;
+  -webkit-appearance: none;
+  border-radius: 5px;
+  background: #f7c60a;
+  outline: none;
+}
+.range-value{    
+  display: flex;
+  justify-content: space-between;
+  width: 300px;}
+  
+
+.slider::-webkit-slider-thumb {
+  pointer-events: all;
+  position: relative;
+  z-index: 1;
+  outline: 0;
+  background-attachment: #f7c60a;
+  background: #f7c60a;
+}
+
+section.range-slider input::-moz-range-thumb {
+  pointer-events: all;
+  position: relative;
+  z-index: 10;
+  -moz-appearance: none;
+  width: 9px;
+  background: #f7c60a;
+
+}
+
+section.range-slider input::-moz-range-track {
+  position: relative;
+  z-index: 100;
+  background-color: rgba(0, 0, 0, 1);
+  border: 0;
+}
+section.range-slider input:last-of-type::-moz-range-track {
+  -moz-appearance: none;
+  background: #f7c60a;
+  border: 0;
+}
+section.range-slider input[type=range]::-moz-focus-outer {
+border: 0;
+}
+ 
+ /* Select drop down css */
+ select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    -ms-appearance: none;
+    appearance: none;
+    outline: 0;
+    box-shadow: none;
+    border: 0 !important;
+    background: #f7b844;
+    background-image: none;
+  }
+  /* Remove IE arrow */
+  select::-ms-expand {
+    display: none;
+  }
+  /* Custom Select */
+  .select {
+    font-weight: 600;
+    position: relative;
+    display: flex;
+    width: 20em;
+    line-height: 3;
+    background: #f3ae41;
+    overflow: hidden;
+    border-radius: .25em;
+  }
+  select {
+    flex: 1;
+    padding: 0 .5em;
+    color: #fff !important;
+    cursor: pointer;
+  }
+  /* Arrow */
+  .select::after {
+    font-family: FontAwesome;
+    content: '\f107';
+    position: absolute;
+    top: -21px;
+    right: 0;
+    padding: 0 7px;
+    background: #f3ae41;
+    color: #fff !important;
+    cursor: pointer;
+    pointer-events: none;
+    transition: .25s all ease;
+    font-size: 26px;
+  }
+  /* Transition */
+  .select:hover::after {
+    color: #f39c12;
+  }
+.form-control
+{   
+    background: #fbfaf9 !important;
+    border: 1px solid #f7b844 !important;
+    color: #4a4948 !important;
+    height: 34px !important;
+    box-shadow: 0px 0px 6px 1px #e0dbdb !important;
+    border: none
+}
+.fgm-r{margin-right:20px;}      
+.form-group {margin-bottom: 15px; width: 240px;}
+/* Select drop down css */
+
+/* .modal.in .modal-dialog{width:450px} */
+
+label {
+  font-size: 15px !important;
+    display: block !important;
+    color:#000 !important;
+    max-width: 100%;
+    margin-bottom: 5px;
+    font-weight: 700;
+}
+.checkbox-inline+.checkbox-inline, .radio-inline+.radio-inline{margin-left: 0px !important}
+.pagination>.active>a, .pagination>.active>a:focus, .pagination>.active>a:hover, .pagination>.active>span, .pagination>.active>span:focus, .pagination>.active>span:hover {
+  z-index: 3;
+  color: #fff !important;
+  cursor: default;
+  background-color: #f7b844 !important;
+  border-color: #f7b844 !important;
+  cursor: pointer !important;
+}
+.pagination>li>a, .pagination>li>span{cursor: pointer !important;}
+/*custom checkbox part*/
+.check-opt{display: flex;justify-content: space-between;align-items: center;width: 200px;}
+.check-opt>label{font-weight: 400;}
+.regular-checkbox {
+	-webkit-appearance: none;
+	background-color: #fff;
+	border: 2px solid #f7b844;
+	/* box-shadow: 0 1px 2px rgba(0,0,0,0.05), inset 0px -15px 10px -12px rgba(0,0,0,0.05); */
+	padding: 9px !important;
+	border-radius: 3px;
+	display: inline-block;
+  position: relative;
+  top: 6px;
+  margin-right: 12px !important;
+}
+.regular-checkbox:checked {
+	background-color: #fff;
+	border: 2px solid #f7b844;
+	/* box-shadow: 0 1px 2px rgba(0,0,0,0.05), inset 0px -15px 10px -12px rgba(0,0,0,0.05), inset 15px 10px -12px rgba(255,255,255,0.1); */
+	color: #f7b844;
+}
+.regular-checkbox:checked:after {
+	content: '\2714';
+	font-size: 14px;
+	position: absolute;
+	top: 0px;
+	left: 3px;
+	color: #f7b844;
+}
+.alerts
+{
+color: red;
+position: absolute;
+right: 20px;
+font-size: 12px;
+  }
+.mandate{color: red}
+/*custom checkbox part*/
+/* @media (min-width: 768px){
+.modal-dialog {
+    width: 90% !important;
+    margin: 30px auto;
+}
+}  */
+@media only screen and (min-width: 1024px) and (max-width:2000px)  {
+  .head{display: flex;
+    flex-direction: column;
+    width: 212px;
+    margin-top: -55px;
+    margin-left: 160px;}
+  }
