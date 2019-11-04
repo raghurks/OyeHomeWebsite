@@ -22,14 +22,14 @@
 .m-r-57{padding-right: 57px;}
 .search
 {   
-   display: flex;
-   justify-content: flex-start;
-   align-items: baseline;
- }
+    display: flex;
+    justify-content: flex-start;
+    align-items: baseline;
+}
 /* search drop down css */
 .result-main{  box-shadow: 1px 1px 8px 2px #b9b5b540;background: #fff;}
- .result-row
- {    
+.result-row
+{    
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
@@ -39,8 +39,9 @@
 .flat-img{
     display: flex;
     flex-direction: column;
+    justify-content: stretch; 
+    align-items: center;
 }
-
 .f-add, .rent
 {
     font-size: 13px;
@@ -70,7 +71,7 @@
 }
 .spec-details > div:last-child
 {
-   border-right: none;
+    border-right: none;
 }
 .filter-head{
     display: flex;
@@ -87,7 +88,7 @@
 }   
 .address
 {   
-     display: flex;
+    display: flex;
     justify-content: space-between;
 }
 .filter{    
@@ -96,12 +97,7 @@
     padding: 0px;
 }
 .filter-list{padding: 16px 10px}
-.fa-heart-o
-{
-    color: #f3ae41;
-    font-size: 22px;
-    font-weight: 300;
-}
+
 .price{color: #f3ae41;font-size: 18px;}
 .rupee{color:#000 !important;font-family: fantasy;}
 .ap-name , .ap-desc{font-size: 13px;font-weight: 400;color: #828181;padding-top: 20px;}
@@ -125,34 +121,32 @@ img{ width: 116px;height: 93px;}
     background: #080808eb;
     color: #FFF;
     background: #040404bd !important;
-    padding-right: 4px;
+    padding: 0px 4px;
     font-size: 12px;
     position: relative;
     top: -17px;
-    text-align: right;}
-    
-
-  @media only screen and (min-width: 320px) and (max-width: 600px)  {
+    right: -30px;
+}
+@media only screen and (min-width: 320px) and (max-width: 600px)  {
     .search {flex-direction: column;}
     .form-group,.form-group1 {width: 100% !important;}
 }
-  @media only screen and (min-width: 650px) and (max-width:951px)  {
+@media only screen and (min-width: 650px) and (max-width:951px)  {
     .result-row{flex-direction:column;}
     .m-r-57{padding-right: 0px;}
- }
+}
 @media only screen and (min-width: 320px) and (max-width:640px)  {
-        .m-r-57{padding-right: 0px;}
-        .container-fluid{padding:0px 10px;}
-        .filter{margin: 25px 15px;}
-        .result-row{flex-direction:column;}
-        .address{flex-direction:row;}
-        img{width: 100%;height: 200px;}
-        .spec-details{justify-content: space-around;
-            align-items: inherit;
-            flex-direction: column;
-            flex-wrap: nowrap;}
-            .spec-details > div{border-bottom: 1px solid white;border-right: none; padding:0px 13px 10px 13px;}
-    }
-  
+    .m-r-57{padding-right: 0px;}
+    .container-fluid{padding:0px 10px;}
+    .filter{margin: 25px 15px;}
+    .result-row{flex-direction:column;}
+    .address{flex-direction:row;}
+    img{width: 100%;height: 200px;}
+    .spec-details{justify-content: space-around;
+    align-items: inherit;
+    flex-direction: column;
+    flex-wrap: nowrap;}
+    .spec-details > div{border-bottom: 1px solid white;border-right: none; padding:0px 13px 10px 13px;}
+}
 
-        
+

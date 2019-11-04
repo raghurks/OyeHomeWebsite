@@ -21,6 +21,8 @@ export class HomeComponent implements OnInit {
   Furnishing:any;
   space:any;
   bed:any;
+  filteredList:any;
+  filteredListAddress:any;
   items = [];
   pageOfItems: Array<any>;
   pageOfItemsLength:Boolean;
@@ -46,6 +48,7 @@ export class HomeComponent implements OnInit {
     this.reqMobnumber= "";
     this.req_name= "";
     this.req_email= "";
+    this.filteredList="";
     this.reqcity= "";
     this.locality= "";
     this.phasing= "";
@@ -55,6 +58,7 @@ export class HomeComponent implements OnInit {
     this.bed= "";
     this.slide1 = 5;
     this.slide2 = 10;
+    this.filteredListAddress="";
     this.cid="";
     this.cityname='';
     this.pageOfItemsLength=false;
@@ -82,7 +86,7 @@ export class HomeComponent implements OnInit {
     let reqAppDetails=
       {
         "Name":this.req_name,
-        "MobileNumber": this.reqMobnumber,
+        "MobileNumber": '+91'+ this.reqMobnumber,
         "EmailID":this.req_email,
         "City": this.reqcity,
         "Locality": this.locality,
@@ -185,14 +189,19 @@ getbedroomtype(bed){
     this.appId=appId;
     this.appName=appName;
   }
+  openModal3(viewdetails: TemplateRef<any>,appId) {
+    console.log(appId);
+    this.filteredList=this.flatDetailList.filter(data=>{
+      return data['appId']==appId;
+    })
+    console.log(this.filteredList);
+    console.log(this.filteredList[0].price);
+    console.log(this.filteredList[0]['address']);
+    this.filteredListAddress=this.filteredList[0]['address'];
+    this.modalRef = this.modalService.show(viewdetails, { class: 'modal-lg' });
 
+  }
   getVals() {
-    // Get slider values
-    // let parent = this.parentNode;
-    //let slides = parent.getElementsByTagName("input");
-    // let slide1 = parseFloat( slides[0].value );
-    // let slide2 = parseFloat( slides[1].value );
-
     let sliderSections = document.getElementsByClassName("range-slider");
     for (let x = 0; x < sliderSections.length; x++) {
       let sliders = sliderSections[x].getElementsByTagName("input");
@@ -200,7 +209,6 @@ getbedroomtype(bed){
         this.slide1 = parseFloat(sliders[0].value);
         this.slide2 = parseFloat(sliders[1].value);
         if (this.slide1 > this.slide2) { let tmp = this.slide2; this.slide2 = this.slide1; this.slide1 = tmp; }
-
         let displayElement1 = document.getElementsByClassName("rangeValues")[0];
         let displayElement2 = document.getElementsByClassName("rangeValues1")[0];
         displayElement1.innerHTML = this.slide1.toString();
@@ -211,6 +219,9 @@ getbedroomtype(bed){
     // Neither slider will clip the other, so make sure we determine which is larger
 
   }
+
+ 
+
   ngAfterViewInit() {
     let sliderSections2 = document.getElementsByClassName("range-slider");
     for (let x = 0; x < sliderSections2.length; x++) {

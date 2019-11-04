@@ -27,20 +27,19 @@
                         </div>
                 </div>
                 <!--dropdown list start-->
-
-                <p *ngIf="flatDetailList.length">{{flatDetailList.length}} results Found</p>
-
-        <!--search results start-->
-        <div class="result-main">
-                        <!--if condition to display message when no reults found-->
+                <p *ngIf="cities && selectedState">{{flatDetailList.length}} results Found</p>
+                <!--search results start-->
+                <div class="result-main">
+                        <!--if condition to display message when no results found-->
                         <div class="result-row" *ngIf="pageOfItemsLength">
                                 <p class="noresult">No results found!</p>
                         </div>
-                        <!--if condition to display message when no reults found-->
+                        <!--if condition to display message when no results found-->
                         <div class="result-row" *ngFor="let flatDetail of pageOfItems | orderBy: order :true">
                                 <div class="flat-img">
                                         <img [src]="flatDetail.appImage[3]">
-                                        <span class="ima-count" (click)="openModal1(gallery,flatDetail.appId,flatDetail.appName)"
+                                        <span class="ima-count"
+                                                (click)="openModal1(gallery,flatDetail.appId,flatDetail.appName)"
                                                 name="appname">{{flatDetail.appImage.length}} Photos</span>
                                         <button class="cont-bt">Contact now</button>
                                 </div>
@@ -65,18 +64,24 @@
                                                 </div>
                                         </div>
                                         <div>
-                                        <p class="ap-desc">Spacious living room.
-                                                                Separate washing/utility area
-                                                                With all electrical fittings – Fans, curtain rods, tube light, Exhaust in bathroom and in Kitchen, Geyser etc.
-                                                                Semi-Furnished
-                                                                Modular Kitchen
-                                                                Wardrobes in both rooms
-                                                                Dressing table in master room
-                                                                3 Balconies. (1 balcony for each room and 1 for living room, Excellent ventilation, excellent view and natural lighting)
-                                                                24 hrs water supply.
-                                                                24 hrs Security and Electricity Backup.
-                                                                Covered Car Parking
-                                        </p>
+                                               <ul class="ap-desc">
+                                                           <li>Spacious living room.</li>
+                                                           <li>Separate washing/utility area</li>
+                                                           <li>With all electrical fittings – Fans, curtain rods, tube light</li>
+                                                           <li>Exhaust in bathroom and in Kitchen, Geyser etc.</li>
+                                                           <li>Semi-Furnished</li>
+                                                           <li>Modular Kitchen.</li>
+                                                           <li>Wardrobes in both rooms.</li>
+                                                           <li>Dressing table in master room</li>
+                                                           <li>3 Balconies. (1 balcony for each room and 1 for living room.</li>
+                                                           <li>Excellent ventilation, excellent view and natural lighting).</li>
+                                                           <li>24 hrs water supply.</li>
+                                                           <li>24 hrs Security and Electricity Backup.</li>
+                                                           <li>Covered Car Parking.</li>
+
+                                                </ul>
+                                                        
+                                                
                                         </div>
                                         <div class="view">
                                                 <a routerLink="../viewdetails">View Details</a>
@@ -87,9 +92,10 @@
                 </div>
                 <!--search results end-->
                 <div class="card-footer pb-0 pt-3">
-                        <jw-pagination [pageSize]=5 [items]="flatDetailList" (changePage)="onChangePage($event)"></jw-pagination>
+                        <jw-pagination [pageSize]=3 [items]="flatDetailList" (changePage)="onChangePage($event)">
+                        </jw-pagination>
                 </div>
-         </div>
+        </div>
 
         <div class="col-sm-12 col-lg-3 col-md-12 filter">
                 <div class="filter-head">
@@ -159,14 +165,16 @@
                                         <label><input type="radio" id="checkbox-1-1" class="regular-checkbox"
                                                         name="phasing" />East</label>
                                         <label><input type="radio" id="checkbox-1-1" class="regular-checkbox"
-                                                        name="phasing" />East North</label>
+                                                        name="phasing" />South East</label>
+                                        <label><input type="radio" id="checkbox-1-1" class="regular-checkbox"
+                                                                name="phasing" checked/>North</label>
                                 </div>
                         </div>
                         <div class="form-group request-form-field">
                                 <label for="exampleInputEmail1">Parking</label>
                                 <div class="check-opt">
                                         <label><input type="radio" id="checkbox-1-1" class="regular-checkbox"
-                                                        name="Parking" />Public</label>
+                                                        name="Parking" checked/>Public</label>
                                         <label><input type="radio" id="checkbox-1-1" class="regular-checkbox"
                                                         name="Parking" />Reserved</label>
                                 </div>
@@ -177,7 +185,7 @@
                                         <label><input type="radio" id="checkbox-1-1" class="regular-checkbox"
                                                         name="Furnishing" />Full</label>
                                         <label><input type="radio" id="checkbox-1-1" class="regular-checkbox"
-                                                        name="Furnishing" />Semi</label>
+                                                        name="Furnishing" checked/>Semi</label>
                                         <label><input type="radio" id="checkbox-1-1" class="regular-checkbox"
                                                         name="Furnishing" />No</label>
 

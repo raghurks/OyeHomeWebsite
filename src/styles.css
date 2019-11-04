@@ -27,7 +27,12 @@ a{color: #f7b844 !important;}
   background-image: none;
   border-color: #f7b844;
 }
-
+.fa-heart-o
+{
+    color: #f3ae41;
+    font-size: 22px;
+    font-weight: 300;
+}
 section.range-slider {
   position: relative;
   width: 100%;
@@ -39,7 +44,7 @@ flex-direction: column;
 margin: 0px 0px 30px 0px}
 .range-val{display: flex;
 justify-content: space-between;}
-.rangeValues,.rangeValues1{
+.rangeValues,.rangeValues1,.rangeValues2,.rangeValues3{
 border: 1px solid grey;
 padding: 6px 17px;
 width: 77px;
@@ -174,6 +179,8 @@ label {
     margin-bottom: 5px;
     font-weight: 700;
 }
+.pf{padding-left: 34px !important}
+.phoneformat{position: absolute;bottom: 52px;left: 25px;}
 .checkbox-inline+.checkbox-inline, .radio-inline+.radio-inline{margin-left: 0px !important}
 .pagination>.active>a, .pagination>.active>a:focus, .pagination>.active>a:hover, .pagination>.active>span, .pagination>.active>span:focus, .pagination>.active>span:hover {
   z-index: 3;
@@ -185,7 +192,7 @@ label {
 }
 .pagination>li>a, .pagination>li>span{cursor: pointer !important;}
 /*custom checkbox part*/
-.check-opt{display: flex;justify-content: space-between;align-items: center;width: 200px;}
+.check-opt{display: flex;justify-content: space-between;align-items: center;width: 300px;}
 .check-opt>label{font-weight: 400;}
 .regular-checkbox {
 	-webkit-appearance: none;
@@ -213,6 +220,7 @@ label {
 	left: 3px;
 	color: #f7b844;
 }
+.zsiq_ellips{display: none !important}
 .alerts
 {
 color: red;
@@ -222,12 +230,10 @@ font-size: 12px;
   }
 .mandate{color: red}
 /*custom checkbox part*/
-/* @media (min-width: 768px){
-.modal-dialog {
-    width: 90% !important;
-    margin: 30px auto;
-}
-}  */
+@media (min-width: 768px){
+  .modal-lg{width: 90% !important}
+
+}  
 @media only screen and (min-width: 1024px) and (max-width:2000px)  {
   .head{display: flex;
     flex-direction: column;
