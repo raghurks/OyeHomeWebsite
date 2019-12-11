@@ -24,7 +24,6 @@ export class MapsComponent implements OnInit {
   // @Output() sendappImgCount= new EventEmitter<any>();
 
   constructor(private map:MapService,private associationservice:AssociationService){
-
   this.lat=0;
   this.lng=0;
   this.carouselImages=[];
@@ -37,7 +36,6 @@ export class MapsComponent implements OnInit {
     this.carouselImages=this.associationservice.getFlatdetails();
     console.log(this.carouselImages);
     // console.log(this.carouselImages[0]['appImage'][0]);
-
     this.carouselImages=this.carouselImages.filter(img=> {
       return img['appId'] == this.appId;
     });

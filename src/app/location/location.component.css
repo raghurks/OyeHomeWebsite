@@ -8,18 +8,18 @@
 
   }
  .contdetails{    
-    background: #f7b844;
+    background: #EFEFEF;
     display: flex;
     justify-content: center;
     align-items: center;
-    border-left: 26px solid white;
+    border-left: 26px solid #EFEFEF;
     padding-left: 46px;
     height: 358px;   
 } 
 .bor-line{border: 2px solid gainsboro;padding:0px}
 .p-30{padding: 40px 38px;}
 .contdetails >p{
-  color: #fff;
+  color: #151414;
   font-weight: 300 !important;
   font-size: 22px;
   padding-top: 30px;
@@ -41,14 +41,14 @@
   
   /* Change background color of buttons on hover */
   .tab button:hover {
-    background-color: #FFB81A;
-    color:#000 !important;
+    background-color: #4bb4c1;
+    color:#fff !important;
   }
   
   /* Create an active/current tablink class */
   .tab button.active {
-    background-color: #FFB81A;
-    color:#000 !important;
+    background-color: #4bb4c1;
+    color:#fff !important;
 
   }
   

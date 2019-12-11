@@ -6,7 +6,7 @@ export const environment = {
   production: false,
 
   firebaseConfig:{
-    apiKey: "AIzaSyCcP2QWBMDxGds-CfDPgJm4TYBuYGnlCsY",
+    apiKey: "AIzaSyCJc5HvTftpIWK1VRupATlDPgYVYqVn2Dc",
     authDomain: "geo-location-oyehomes.firebaseapp.com",
     databaseURL: "https://geo-location-oyehomes.firebaseio.com",
     projectId: "geo-location-oyehomes",
@@ -15,7 +15,7 @@ export const environment = {
     appId: "1:937174375982:web:be5c7c35eae36976e489bf",
     measurementId: "G-GH7Z47CBMH"
   },
-      googleMapsKey: 'AIzaSyA-cHWeTcB7KoJ5cJpPfjYcAGdWIPI5KgY'
+      googleMapsKey: 'AIzaSyCJc5HvTftpIWK1VRupATlDPgYVYqVn2Dc'
 };
 
 /*

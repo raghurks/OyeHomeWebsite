@@ -94,7 +94,7 @@ label{margin-bottom:15px}
 .request{display: flex;justify-content: flex-end;}
 .request>span{border: 1px solid #969292;padding: 3px 10px;color: #FFB81A;font-size: 13px;position: relative;}
 .request>span:hover{border: 1px solid #969292;background:#FFB81A;padding: 3px 10px;color: #FFF;font-size: 13px;position: relative;cursor: pointer;}
-.request::before{content:url('../../assets/request32x32.png');position: absolute;right: 256px;top: -9px;z-index: 300;}
+.request::before{content:url('../../assets/request.png');position: absolute;right: 256px;top: -9px;z-index: 300;}
 .question{display: flex;justify-content: flex-start;align-items: center;text-decoration: underline;font-weight:500; font-size: 16px;    text-underline-position: under;
 color: #252525 !important; margin-bottom: 40px}
 .question-sub>a{color:#000 !important}

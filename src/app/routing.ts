@@ -11,6 +11,9 @@ import { AboutComponent } from './about/about.component';
 import { TestimonialsComponent } from './testimonials/testimonials.component';
 import { LocationComponent } from './location/location.component';
 import { from } from 'rxjs';
+import { BlogsComponent } from './blogs/blogs.component';
+import { JobsComponent } from './jobs/jobs.component';
+import { GooglemapComponent } from './googlemap/googlemap.component';
 
 const routes: Routes = [
     { path: '',redirectTo:'home', pathMatch: 'full'},
@@ -23,11 +26,11 @@ const routes: Routes = [
     { path: 'clients', component:ClientsComponent},
     { path: 'location', component:LocationComponent},
     { path: 'about', component:AboutComponent},
-    { path: 'testimonials', component:TestimonialsComponent}
+    { path: 'testimonials', component:TestimonialsComponent},
+    { path: 'blogs', component:BlogsComponent},
+    { path: 'jobs', component:JobsComponent},
+    { path: 'googlemaps', component:GooglemapComponent}
 ]
-
-
-
 @NgModule({
     imports:[RouterModule.forRoot(routes)],
     exports:[RouterModule]

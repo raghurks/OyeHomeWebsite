@@ -1,53 +1,56 @@
 <div class="container-fluid bg">
         <div class="col-xs-12 col-sm-12 col-md-9 p-rl">
-
-                <!--request row start-->
-                <div class="col-sm-12 m-top request">
-                        <span (click)="openModal(template)">Request for home in different locality</span>
-                </div>
-
-                <!--request row end-->
-
                 <!--choice heading row start-->
                 <div class="col-sm-12 make">Make your Choice</div>
                 <!--choice heading row end-->
 
                 <!--Search Drop Down start -->
                 <div class="col-sm-12 search m-t-20">
-                        <div class="select form-group fgm-r">
-                                <select class="form-control" id="sel1 country" *ngIf="getCountries()"
-                                        [(ngModel)]="selectedCountry" (change)="onSelectCountry($event.target.value)">
-                                        <option value="0">Select Home Type</option>
-                                        <option *ngFor="let country of getCountries()" value={{country.id}}>
-                                                {{country.name}}</option>
-                                </select>
+                        <div class="dropdown search-dropd">
+                                <button class="form-control select" type="button"
+                                        data-toggle="dropdown">{{selectOpt1}}
+                                        </button>
+                                <ul class="dropdown-menu fullw">
+                                        <li *ngIf="getCountries().length==0"><a>Please refresh the page</a></li>
+                                        <li *ngFor="let country of getCountries()">
+                                        <a (click)="onSelectCountry(country.id,country.name)">{{country.name}}</a>
+                                        </li>
+                                </ul>
                         </div>
-                        <div class="select form-group fgm-r">
-                                <select class="form-control" id="sel1 state" *ngIf="states" [(ngModel)]="selectedState"
-                                        (change)="onSelectState($event.target.value)" class="form-control">
-                                        <option disabled value="0">Select City</option>
-                                        <option *ngFor="let state of states" value={{state.id}}>{{state.name}}</option>
-                                </select>
+                        <div class="dropdown search-dropd">
+                                <button class="form-control select" type="button"
+                                        data-toggle="dropdown">{{selectOpt2}}
+                                       </button>
+                                <ul class="dropdown-menu fullw">
+                                        <li *ngIf="states.length==0"><a>Please select Home Type</a></li>
+                                        <li *ngFor="let state of states">
+                                                <a (click)="onSelectState(state.id,state.name)">{{state.name}}</a>
+                                        </li>
+                                </ul>
                         </div>
-
-                        <div class="select form-group">
-                                <select class="form-control" id="sel1 city" (change)="sortbyLocality(cityname)"
-                                        [(ngModel)]="cityname" name="cityname">
-                                        <option disabled value="">Select Locality</option>
-                                        <option *ngFor="let city of cities" [value]=city.name>{{city.name}}</option>
-                                </select>
+                        <div class="dropdown search-dropd">
+                                <button class="form-control select" type="button"
+                                        data-toggle="dropdown">{{selectOpt3}}
+                                        </button>
+                                <ul class="dropdown-menu fullw">
+                                        <li *ngIf="cities.length==0"><a>Please select City</a></li>
+                                        <li *ngFor="let city of cities">
+                                                <a (click)="sortbylatlng(city.name,city.id)">{{city.name}}</a>
+                                        </li>
+                                </ul>
                         </div>
                 </div>
                 <!--Search Drop Down End -->
 
                 <!--map-->
                 <div class="col-md-12 m-t-30">
-                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15155907.117779676!2d72.16862489471619!3d21.966336400327002!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x30635ff06b92b791%3A0xd78c4fa1854213a6!2sIndia!5e0!3m2!1sen!2sin!4v1571227884372!5m2!1sen!2sin"
-                                width="100%" height="350" frameborder="0" style="border:0;" allowfullscreen=""></iframe>
+                        <!-- <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3682.279490866512!2d77.64574291461858!3d12.846765221081649!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bae6b635e4a1fa5%3A0xa21aa0e23833a988!2sOyeSpace!5e1!3m2!1sen!2sin!4v1573191542380!5m2!1sen!2sin"
+                                width="100%" height="350" frameborder="0" style="border:0;" allowfullscreen=""></iframe> -->
+                        <app-googlemap></app-googlemap>
                 </div>
                 <!--map-->
-                <!--questions-->
-                <div class="col-sm-12 question">
+                 <!--questions-->
+                 <div class="col-sm-12 question">
 
 
                         <div class="col-md-6 question-sub">
@@ -65,12 +68,13 @@
         <!--Search results-->
         <div class="col-xs-12 col-sm-12 col-md-3 np search-results">
                 <p class="featured">Featured Properties</p>
-
                 <div>
                         <div class="col-sm-12 np flat-list-row"
                                 *ngFor="let flatDetail of flatDetailList | orderBy: order :true | slice:0:3">
                                 <div class="search-res-row">
-                                        <div><img class="apimage" [src]="flatDetail.appImage[0]">
+                                        <div><img class="apimage" [src]="flatDetail.appImage[0]"
+                                                        (click)="openModal1(gallery,flatDetail.appId,flatDetail.appName)"
+                                                        name="appname">
                                                 <span class="ima-count"
                                                         (click)="openModal1(gallery,flatDetail.appId,flatDetail.appName)"
                                                         name="appname">{{flatDetail.appImage.length}} Photos</span>
@@ -86,20 +90,16 @@
                                         </div>
                                 </div>
                                 <div class="flat-cont-details">
-                                        <button class="cont-bt" (click)="openModal2(contact)">Contact now</button><i
-                                                class="fa fa-heart-o" aria-hidden="true"></i>
+                                        <button class="cont-bt" (click)="openModal2(contact)">Contact now</button>
+                                        <img src="../../assets/images/social/like.png">
                                         <a (click)="openModal3(viewdetails,flatDetail.appId)">View Details</a>
                                 </div>
-
                         </div>
                         <div class="view-all"><a routerLink="../viewdetails">View All Homes</a></div>
                 </div>
         </div>
         <!--Search results-->
-
 </div>
-
-
 
 <!--Request a call pop up-->
 <ng-template #template>
@@ -118,7 +118,7 @@
                                 <div class="form-group request-form-field" style="width: 100%">
                                         <label for="exampleInputEmail1">Name <span class="mandate">*</span></label>
                                         <input name="req_name" type="text" class="form-control" [(ngModel)]="req_name"
-                                                #reqnameControl='ngModel' aria-describedby="emailHelp" required>
+                                                #reqnameControl='ngModel' required>
                                         <p class="alerts" *ngIf="reqnameControl.invalid && reqnameControl.touched">Name
                                                 field is required</p>
                                 </div>
@@ -126,17 +126,16 @@
                                         <label for="exampleInputEmail1">Email <span class="mandate">*</span></label>
                                         <input name="req_email" type="text" class="form-control" [(ngModel)]="req_email"
                                                 #reqemailControl='ngModel' type="email" class="form-control"
-                                                pattern="[a-zA-Z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
-                                                aria-describedby="emailHelp" required>
+                                                pattern="[a-zA-Z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" required>
                                         <p class="alerts" *ngIf="reqemailControl.invalid && reqemailControl.touched">
                                                 Email-id is invalid</p>
                                 </div>
                                 <div class="form-group request-form-field">
                                         <label for="exampleInputEmail1">Phone <span class="mandate">*</span></label>
-                                        <input type="text"  name="reqMobnumber" minlength="10" maxlength="10"
+                                        <input type="text" name="reqMobnumber" minlength="10" maxlength="10"
                                                 [(ngModel)]="reqMobnumber" #reqnumberControl="ngModel"
                                                 class="form-control pf" required (keypress)=_keyPress($event)>
-                                                <span class="phoneformat">+91</span>
+                                        <span class="phoneformat">+91</span>
                                         <p type="tel" pattern="[0-9]+" class="alerts"
                                                 *ngIf="reqnumberControl.invalid && reqnumberControl.touched">Valid 10
                                                 digit mobile number is required</p>
@@ -174,20 +173,19 @@
                                 <div class="form-group request-form-field">
                                         <label for="exampleInputEmail1">Property Type</label>
                                         <div class="request-form-field property-type">
-                                                <button type="button" class="btn btn-warning"
+                                                <button type="button" class="btn btn-warning1"
                                                         (click)="getproptype('Office')">Office</button>
-                                                <button type="button" class="btn btn-warning"
+                                                <button type="button" class="btn btn-warning1"
                                                         (click)="getproptype('Shop')">Shop</button>
-                                                <button type="button" class="btn btn-warning"
+                                                <button type="button" class="btn btn-warning1"
                                                         (click)="getproptype('Showroom')">Showroom</button>
-                                                <button type="button" class="btn btn-warning"
+                                                <button type="button" class="btn btn-warning1"
                                                         (click)="getproptype('Shed')">Industrial Shed</button>
-                                                <button type="button" class="btn btn-warning"
+                                                <button type="button" class="btn btn-warning1"
                                                         (click)="getproptype('Showroom')">Industrial Showroom</button>
 
                                         </div>
                                 </div>
-
                                 <div class="form-group request-form-field">
                                         <label for="exampleInputEmail1">Price Range</label>
                                         <section class="range-slider">
@@ -218,32 +216,34 @@
                                                 </div>
                                         </section>
                                 </div>
-
                                 <div class="form-group request-form-field">
                                         <label for="exampleInputEmail1">Bedrooms</label>
                                         <div class="request-form-field property-type">
-                                                <input type="button" class="btn btn-warning active"
+                                                <input type="button" class="btn btn-warning1 active"
                                                         (click)="getbedroomtype('1+')" value="1+" />
-                                                <input type="button" class="btn btn-warning"
+                                                <input type="button" class="btn btn-warning1"
                                                         (click)="getbedroomtype('2+')" value="2+" />
-                                                <input type="button" class="btn btn-warning"
+                                                <input type="button" class="btn btn-warning1"
                                                         (click)="getbedroomtype('3+')" value="3+" />
-                                                <input type="button" class="btn btn-warning"
+                                                <input type="button" class="btn btn-warning1"
                                                         (click)="getbedroomtype('4+')" value="4+" />
-                                                <input type="button" class="btn btn-warning"
+                                                <input type="button" class="btn btn-warning1"
                                                         (click)="getbedroomtype('5+')" value="5+" />
                                         </div>
                                 </div>
                                 <div class="form-group request-form-field">
-                                        <label for="exampleInputEmail1">Phasing</label>
+                                        <label for="exampleInputEmail1">Facing</label>
                                         <div class="check-opt">
-                                                <label><input type="radio" id="checkbox-1-1" class="regular-checkbox" name="phasing" value="East" [(ngModel)]="phasing"
+                                                <label><input type="radio" id="checkbox-1-1" class="regular-checkbox"
+                                                                name="phasing" value="East" [(ngModel)]="phasing"
                                                                 checked />East</label>
-                                                <label><input type="radio" id="checkbox-1-1" class="regular-checkbox" name="phasing" value="South East"
+                                                <label><input type="radio" id="checkbox-1-1" class="regular-checkbox"
+                                                                name="phasing" value="South East"
                                                                 [(ngModel)]="phasing" />South East</label>
-                                                <label><input type="radio" id="checkbox-1-1" class="regular-checkbox" name="phasing" value="North"
+                                                <label><input type="radio" id="checkbox-1-1" class="regular-checkbox"
+                                                                name="phasing" value="North"
                                                                 [(ngModel)]="phasing" />North</label>
-                                                                
+
                                         </div>
                                 </div>
                                 <div class="form-group request-form-field">
@@ -277,8 +277,6 @@
         </div>
 </ng-template>
 <!--Request a call pop up-->
-
-
 <!--Gallery pop up box-->
 <ng-template #gallery>
         <div class="modal-header" style="background: #252424">
@@ -298,7 +296,6 @@
 
 <!--Contact us pop up box-->
 <ng-template #contact id="contact_pop">
-
         <div class="modal-header" style="background: #82808026">
                 <h4 class="modal-title" style="text-align:center">Contact Us</h4>
                 <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
@@ -306,56 +303,61 @@
                 </button>
         </div>
         <div class="modal-body">
-                <div class="container">
+                <div class="container-fluid" style="width:100%">
 
                         <div class="col-sm-12 np">
                                 <div class="form-group request-form-field" style="width: 100%">
                                         <label for="exampleInputEmail1">Name</label>
-                                        <input type="text" class="form-control" id="exampleInputEmail1"
-                                                aria-describedby="emailHelp">
+                                        <input type="text" class="form-control" name="contact_name"
+                                                id="exampleInputEmail1" [(ngModel)]="contact_name"
+                                                #cameControl='ngModel' required>
+                                        <p class="alerts" *ngIf="cameControl.invalid && cameControl.touched">Name
+                                                field is required</p>
                                 </div>
                                 <div class="form-group request-form-field">
                                         <label for="exampleInputEmail1">Email</label>
                                         <input type="email" class="form-control" id="exampleInputEmail1"
-                                                aria-describedby="emailHelp">
+                                                name="contact_email" [(ngModel)]="contact_email"
+                                                #cemailControl='ngModel' class="form-control"
+                                                pattern="[a-zA-Z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" required>
+                                        <p class="alerts" *ngIf="cemailControl.invalid && cemailControl.touched">
+                                                Email-id is invalid</p>
                                 </div>
                                 <div class="form-group request-form-field">
                                         <label for="exampleInputEmail1">Phone</label>
-                                        <input type="text" class="form-control" id="exampleInputEmail1"
-                                                aria-describedby="emailHelp">
+                                        <input type="text" class="form-control" name="contact_Mobnumber"
+                                                id="exampleInputEmail1" style="padding-left: 33px;" minlength="10"
+                                                maxlength="10" [(ngModel)]="contact_Mobnumber" #cnumberControl="ngModel"
+                                                class="form-control pf" required (keypress)=_keyPress($event)>
+                                        <span _ngcontent-tmu-c4="" class="phoneformat1">+91</span>
+                                        <p type="tel" pattern="[0-9]+" class="alerts"
+                                                *ngIf="cnumberControl.invalid && cnumberControl.touched">Valid 10
+                                                digit mobile number is required</p>
                                 </div>
                         </div>
                         <!--contact details part-->
-                        <div><button class="cont-bt">Contact Now</button></div>
-
+                        <div><button class="cont-bt" (click)="sendContactDetails()">Contact Now</button></div>
                 </div>
         </div>
-
 </ng-template>
 <!--Contact us pop up box-->
 
 <!--View Appartment Details pop up box-->
 <ng-template #viewdetails>
-
-        <!-- <div class="modal-header" style="background: #82808026">
-                <h4 class="modal-title" style="text-align:center">Contact Us</h4> 
-                <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
-                        <span aria-hidden="true">&times;</span>
-                </button>
-        </div> -->
-        <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()" style="padding-right: 6px;">
-                        <span aria-hidden="true">&times;</span>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()"
+                style="padding-right: 6px;">
+                <span aria-hidden="true">&times;</span>
         </button>
         <div class="modal-body">
                 <div class="container-fluid np">
-
                         <div class="col-sm-12 np">
                                 <div class="result-main">
                                         <!--if condition to display message when no reults found-->
 
                                         <!--if condition to display message when no reults found-->
                                         <div class="result-row">
-                                                <div class="flat-img">
+                                                <div class="flat-img" (click)="openModal1(gallery,filteredList[0].appId,filteredList[0].appName)"
+                                                name="appname">
                                                         <img class="view-img" [src]="filteredList[0].appImage[3]">
                                                         <span class="ima-count1"
                                                                 (click)="openModal1(gallery,filteredList[0].appId,filteredList[0].appName)"
@@ -363,8 +365,8 @@
                                                                 Photos</span>
                                                 </div>
                                                 <div class="app-price">
-                                                        <span class="price"><span
-                                                                        class="rupee">₹&nbsp;</span>{{filteredList[0].price}}</span>
+                                                        <span class="price">
+                                                        <span class="rupee">₹&nbsp;</span>{{filteredList[0].price}}</span>
                                                         <div><i class="fa fa-heart-o" aria-hidden="true"></i></div>
                                                 </div>
                                                 <div class="app-details" style="flex-basis: 60%">
@@ -374,7 +376,6 @@
                                                                         class="rent">{{filteredList[0].rentType}}</span>
                                                         </div>
                                                         <div class="spec">
-
                                                                 <p class="ap-name">{{filteredList[0]['address']}} </p>
                                                                 <span class="spec-head">Specifications</span>
                                                                 <div class="spec-details">
@@ -494,7 +495,9 @@
                                                                 </p>
                                                         </div>
                                                         <div class="view">
-                                                                <button class="cont-bt">Contact now</button>
+                                                                <button class="cont-bt"
+                                                                        (click)="openModal2(contact)">Contact
+                                                                        now</button>
                                                         </div>
                                                 </div>
 

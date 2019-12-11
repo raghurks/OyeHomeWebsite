@@ -25,4 +25,22 @@ export class HomeService {
       
     )
   }
+
+  sendContactDetails(contactDetails){
+    let headers1 = new HttpHeaders().append('Content-Type', 'application/json')
+    .append('X-Champ-APIKey', '1FDF86AF-94D7-4EA9-8800-5FBCCFF8E5C1')
+    .append('Access-Control-Allow-Origin', "*");
+    this.httpClient.post(this.scopeIP + 'oyeliving/api/v1/ContactUsDetails/Create ', JSON.stringify(contactDetails), { headers: headers1 })
+    .subscribe(
+      data=>{
+        console.log(data);
+      },
+      err=>{
+         console.log(err)
+      }
+      
+    )
+  }
+
+
 }

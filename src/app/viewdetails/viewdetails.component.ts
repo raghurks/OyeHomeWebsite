@@ -2,17 +2,21 @@ import { Component, OnInit, TemplateRef} from '@angular/core';
 import { FlatDetail } from '../flat-detail';
 import { AssociationService } from '../../services/association.service';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
+import { HomeService } from '../../services/home.service';
 
 @Component({
   selector: 'app-viewdetails',
   templateUrl: './viewdetails.component.html',
   styleUrls: ['./viewdetails.component.css']
 })
+
 export class ViewdetailsComponent implements OnInit {
+  filteredList: any;
   items = [];
   pageOfItems: Array<any>;
   modalRef: BsModalRef;
   flatDetailList: FlatDetail[];
+  filteredListAddress:any;
   flatDetailListresult: FlatDetail[];
   slide1: any;
   slide2: any;
@@ -26,8 +30,15 @@ export class ViewdetailsComponent implements OnInit {
   appId:any;
   appName:any;
   initialPageCount:any;
+  selectOpt1:string;
+  selectOpt2:string;
+  selectOpt3:string;
+  contact_name: any;
+  contact_email: any;
+  contact_Mobnumber: any;
 
-  constructor(private modalService: BsModalService,private associationservice:AssociationService) { 
+
+  constructor(private modalService: BsModalService,private associationservice:AssociationService,private homeService: HomeService) { 
     this.cityname='';
     this.initialPageCount=5;
     this.pageCount=0;
@@ -35,6 +46,9 @@ export class ViewdetailsComponent implements OnInit {
     this.flatDetailListresult=[];
     this.slide1=5;
     this.slide2=50;
+    this.selectOpt1="Select Home Type";
+    this.selectOpt2="Select City";
+    this.selectOpt3="Select Locality";
   }
 
   ngOnInit() {
@@ -43,6 +57,18 @@ export class ViewdetailsComponent implements OnInit {
     this.flatDetailListresult=  this.flatDetailList;
     // this.items = Array(150).fill(0).map((x, i) => ({ id: (i + 1), name: `Item ${i + 1}`}));
   
+  }
+  sendContactDetails() {
+    let contactDetails =
+    {
+      "Name": this.contact_name,
+      "Email": this.contact_email,
+      "MobileNumber": "+91" + this.contact_Mobnumber,
+      "Country": "+91"
+    }
+    console.log(contactDetails);
+    this.homeService.sendContactDetails(contactDetails)
+
   }
   openModal1(gallery: TemplateRef<any>,appId,appName) {
     this.modalRef = this.modalService.show(gallery, { class: 'modal-lg' });
@@ -59,7 +85,47 @@ export class ViewdetailsComponent implements OnInit {
     // this.associationservice.AppRoomName=this.appRootName;
     
   }
-  sortbyLocality(cityname){
+
+  openModal2(viewdetails: TemplateRef<any>, appId) {
+    console.log(appId);
+    this.filteredList = this.flatDetailList.filter(data => {
+      return data['appId'] == appId;
+    })
+    // console.log(this.filteredList);
+    // console.log(this.filteredList[0].price);
+    // console.log(this.filteredList[0]['address']);
+    this.filteredListAddress = this.filteredList[0]['address'];
+    this.modalRef = this.modalService.show(viewdetails, { class: 'modal-lg' });
+  }
+  openModal3(contact: TemplateRef<any>) {
+    this.modalRef = this.modalService.show(contact, { class: 'modal-sm' });
+  } 
+onChangePage(pageOfItems: Array<any>) {
+    // update current page of items
+    this.pageOfItems = pageOfItems;
+    console.log(this.pageOfItems);
+}
+
+onSelectCountry(country_id: number,countryname) {
+  this.selectedCountry = country_id;
+  this.selectedState = 0;
+  this.cities = [];
+  this.states = this.getCity().filter((item) => {
+  return item.country_id === Number(country_id)
+  });
+  this.selectOpt1=countryname;
+ }
+   
+
+onSelectState(state_id: number,statename) {
+  this.selectedState = state_id;
+  this.cities = this.getLocality().filter((item) => {
+  return item.state_id === Number(state_id)
+  });
+  this.selectOpt2=statename;
+  }
+
+sortbyLocality(cityname){
     this.flatDetailList =this.flatDetailListresult;
     this.pageOfItemsLength=false;
     //console.log(cityname);
@@ -75,35 +141,15 @@ this.pageOfItems=this.flatDetailList;
    this.initialPageCount=this.pageOfItems.length;
     console.log(this.pageCount);
     //console.log(this.pageOfItemsLength);
-  }
-  
-  onChangePage(pageOfItems: Array<any>) {
-    // update current page of items
-    this.pageOfItems = pageOfItems;
-    console.log(this.pageOfItems);
-}
-onSelectCountry(country_id: number) {
-  this.selectedCountry = country_id;
-  this.selectedState = 0;
-  this.cities = [];
-  this.states = this.getCity().filter((item) => {
-  return item.country_id === Number(country_id)
-  });
-  }
-   
-  onSelectState(state_id: number) {
-  this.selectedState = state_id;
-  this.cities = this.getLocality().filter((item) => {
-  return item.state_id === Number(state_id)
-  });
-  }
-   
-  getCountries() {
-  return [
-  { id: 1, name: 'Home For Rent' },
-  // { id: 2, name: 'Home For Lease' }
-  // { id: 3, name: 'Country3' }
-  ];
+    this.selectOpt3=cityname;
+  } 
+
+getCountries() {
+    return [
+    { id: 1, name: 'Home For Rent' },
+    // { id: 2, name: 'Home For Lease' }
+    // { id: 3, name: 'Country3' }
+    ];
   }
    
   getCity() {

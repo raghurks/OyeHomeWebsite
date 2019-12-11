@@ -1,5 +1,5 @@
 /* You can add global styles to this file, and also import other style files */
-body{ background: url('assets/bg.png');background-position: 100% 30%;background-repeat: no-repeat;background-size: contain;overflow-x: hidden;}
+body{ background: url('./assets/bg.png');background-position: 100% 30%;background-repeat: no-repeat;background-size: contain;overflow-x: hidden;}
 body,h1,h2,h3,h4,h5,h6{font-family: 'Quicksand', sans-serif !important;}
 .title-orange{color: #FFB81A;margin: 0px 0px;font-size: 36px;    font-weight: 300;}
 .wel{font-size: 16px;margin: 0px;}
@@ -158,6 +158,7 @@ border: 0;
   }
 .form-control
 {   
+    text-align: left;
     background: #fbfaf9 !important;
     border: 1px solid #f7b844 !important;
     color: #4a4948 !important;
@@ -228,7 +229,28 @@ position: absolute;
 right: 20px;
 font-size: 12px;
   }
+  .phoneformat1{position: absolute;top:180px;left:2px
+}
+.fullw{width: 100%}
 .mandate{color: red}
+
+
+
+.search-dropd{width:240px;margin-right: 10px}
+.select::after {
+  font-family: FontAwesome;
+  content: '\f107';
+  position: absolute;
+  top: -2px;
+  right: 0;
+  padding: 0 7px;
+  background: #f3ae41;
+  color: #fff !important;
+  cursor: pointer;
+  pointer-events: none;
+  transition: .25s all ease;
+  font-size: 26px;
+}
 /*custom checkbox part*/
 @media (min-width: 768px){
   .modal-lg{width: 90% !important}

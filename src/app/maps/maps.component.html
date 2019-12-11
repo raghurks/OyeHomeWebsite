@@ -1,26 +1,9 @@
-<!-- <div *ngIf="lat && lng">
-
-        <agm-map [latitude]="lat" [longitude]="lng">
-      
-          <agm-marker [latitude]="lat" [longitude]="lng">
-      
-            <agm-info-window>
-              <h3><strong>Howdy!</strong></h3>
-              <p>You are here!</p>
-            </agm-info-window>
-      
-          </agm-marker>
-      
-        </agm-map>
-<div> -->
-  <!-- <h1>{{appName}}</h1> -->
-  
-          <div class="carousel"  *ngFor="let image of carouselImages">
-           <!-- {{appImgCount}} -->
-              <a class="carousel-item" *ngFor="let img of image.appImage">
-                <img [src]="img" (click)="getCarouselName(img,$event)">
-              </a>
-          </div>
+<div class="carousel"  *ngFor="let image of carouselImages">
+  <!-- {{appImgCount}} -->
+    <a class="carousel-item" *ngFor="let img of image.appImage" (click)="getCarouselName(img,$event)">
+      <img [src]="img">
+    </a>
+</div>
 
             
                  

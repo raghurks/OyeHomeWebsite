@@ -15,7 +15,6 @@ import { MapsComponent } from './maps/maps.component';
 import { ViewdetailsComponent } from './viewdetails/viewdetails.component';
 import { AgmCoreModule } from '@agm/core';
 import { JwPaginationComponent } from 'jw-angular-pagination';
-export const firebaseConfig = environment.firebaseConfig;
 import { OrderModule } from 'ngx-order-pipe';
 import { AngularFireModule } from '@angular/fire';
 import { environment } from '../environments/environment';
@@ -23,6 +22,13 @@ import { ClientsComponent } from './clients/clients.component';
 import { TestimonialsComponent } from './testimonials/testimonials.component';
 import { LocationComponent } from './location/location.component';
 import { AboutComponent } from './about/about.component';
+import { BlogsComponent } from './blogs/blogs.component';
+import { FooterComponent } from './footer/footer.component';
+import { JobsComponent } from './jobs/jobs.component';
+import { GooglemapComponent } from './googlemap/googlemap.component';
+import { AgmDirectionModule } from 'agm-direction';
+export const firebaseConfig = environment.firebaseConfig;
+
 
 @NgModule({
   declarations: [
@@ -38,8 +44,12 @@ import { AboutComponent } from './about/about.component';
     ClientsComponent,
     TestimonialsComponent,
     LocationComponent,
-    AboutComponent
-  ],
+    AboutComponent,
+    BlogsComponent,
+    FooterComponent,
+    JobsComponent,
+    GooglemapComponent
+    ],
   imports: [
     BrowserModule,
     HttpClientModule,
@@ -47,10 +57,12 @@ import { AboutComponent } from './about/about.component';
     OrderModule,
     FormsModule,
     Routing,
+    AgmDirectionModule, 
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AgmCoreModule.forRoot({
-      apiKey:environment.googleMapsKey
-    }),
+      apiKey:environment.googleMapsKey,
+      libraries: ['geometry']
+        }),
     ModalModule.forRoot()
   ],
   providers: [],

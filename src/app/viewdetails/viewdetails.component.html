@@ -1,17 +1,49 @@
 <div class="container-fluid">
-        <h3 class="choice">Make Your Choice</h3>
+        <h4 class="choice">Make Your Choice</h4>
         <div class="col-sm-12 col-md-12 col-lg-9 m-r-57">
                 <!--dropdown list start-->
                 <div class="search m-b-20">
-                        <div class="select form-group fgm-r">
+                        <div class="dropdown search-dropd">
+                                <button class="form-control select" type="button"
+                                        data-toggle="dropdown">{{selectOpt1}}
+                                       </button>
+                                <ul class="dropdown-menu fullw">
+                                        <li *ngIf="getCountries().length==0"><a>Please refresh the page</a></li>
+                                        <li *ngFor="let country of getCountries()">
+                                        <a (click)="onSelectCountry(country.id,country.name)">{{country.name}}</a>
+                                        </li>
+                                </ul>
+                        </div>
+                        <div class="dropdown search-dropd">
+                                <button class="form-control select" type="button"
+                                        data-toggle="dropdown">{{selectOpt2}}
+                                       </button>
+                                <ul class="dropdown-menu fullw">
+                                        <li *ngIf="states.length==0"><a>Please select Home Type</a></li>
+                                        <li *ngFor="let state of states">
+                                                <a (click)="onSelectState(state.id,state.name)">{{state.name}}</a>
+                                        </li>
+                                </ul>
+                        </div>
+                        <div class="dropdown search-dropd">
+                                <button class="form-control select" type="button"
+                                        data-toggle="dropdown">{{selectOpt3}}
+                                       </button>
+                                <ul class="dropdown-menu fullw">
+                                        <li *ngIf="cities.length==0"><a>Please select City</a></li>
+                                        <li *ngFor="let city of cities">
+                                                <a (click)="sortbyLocality(city.name)">{{city.name}}</a></li>
+                                </ul>
+                        </div>
+                        <!-- <div class="select form-group fgm-r">
                                 <select class="form-control" id="sel1 country" *ngIf="getCountries()"
                                         [(ngModel)]="selectedCountry" (change)="onSelectCountry($event.target.value)">
                                         <option value="0">Select Home Type</option>
                                         <option *ngFor="let country of getCountries()" value={{country.id}}>
-                                                {{country.name}}</option>
+                                                {{country .name}}</option>
                                 </select>
-                        </div>
-                        <div class="select form-group fgm-r">
+                        </div> -->
+                        <!-- <div class="select form-group fgm-r">
                                 <select class="form-control" id="sel1 state" *ngIf="states" [(ngModel)]="selectedState"
                                         (change)="onSelectState($event.target.value)" class="form-control">
                                         <option disabled value="0">Select City</option>
@@ -24,7 +56,7 @@
                                         <option disabled value="">Select Locality</option>
                                         <option *ngFor="let city of cities" [value]="city.name">{{city.name}}</option>
                                 </select>
-                        </div>
+                        </div> -->
                 </div>
                 <!--dropdown list start-->
                 <p *ngIf="cities && selectedState">{{flatDetailList.length}} results Found</p>
@@ -37,16 +69,18 @@
                         <!--if condition to display message when no results found-->
                         <div class="result-row" *ngFor="let flatDetail of pageOfItems | orderBy: order :true">
                                 <div class="flat-img">
-                                        <img [src]="flatDetail.appImage[3]">
+                                        <img [src]="flatDetail.appImage[3]"
+                                                (click)="openModal1(gallery,flatDetail.appId,flatDetail.appName)"
+                                                name="appname">
                                         <span class="ima-count"
                                                 (click)="openModal1(gallery,flatDetail.appId,flatDetail.appName)"
                                                 name="appname">{{flatDetail.appImage.length}} Photos</span>
-                                        <button class="cont-bt">Contact now</button>
+                                        <button class="cont-bt" (click)="openModal3(contact)">Contact now</button>
                                 </div>
                                 <div class="app-price">
                                         <span class="price"><span
                                                         class="rupee">₹&nbsp;</span>{{flatDetail.price}}</span>
-                                        <div><i class="fa fa-heart-o" aria-hidden="true"></i></div>
+                                        <div><img style="width: 40px;height: 40px;" src="../../assets/images/social/like.png"></div>
                                 </div>
                                 <div class="app-details" style="flex-basis: 70%">
                                         <div class="address">
@@ -64,27 +98,24 @@
                                                 </div>
                                         </div>
                                         <div>
-                                               <ul class="ap-desc">
-                                                           <li>Spacious living room.</li>
-                                                           <li>Separate washing/utility area</li>
-                                                           <li>With all electrical fittings – Fans, curtain rods, tube light</li>
-                                                           <li>Exhaust in bathroom and in Kitchen, Geyser etc.</li>
-                                                           <li>Semi-Furnished</li>
-                                                           <li>Modular Kitchen.</li>
-                                                           <li>Wardrobes in both rooms.</li>
-                                                           <li>Dressing table in master room</li>
-                                                           <li>3 Balconies. (1 balcony for each room and 1 for living room.</li>
-                                                           <li>Excellent ventilation, excellent view and natural lighting).</li>
-                                                           <li>24 hrs water supply.</li>
-                                                           <li>24 hrs Security and Electricity Backup.</li>
-                                                           <li>Covered Car Parking.</li>
-
+                                                <ul class="ap-desc">
+                                                        <li>Spacious living room.</li>
+                                                        <li>Separate washing/utility area</li>
+                                                        <li>With all electrical fittings – Fans, curtain rods, tube light</li>
+                                                        <li>Exhaust in bathroom and in Kitchen, Geyser etc.</li>
+                                                        <li>Semi-Furnished</li>
+                                                        <li>Modular Kitchen.</li>
+                                                        <li>Wardrobes in both rooms.</li>
+                                                        <li>Dressing table in master room</li>
+                                                        <li>3 Balconies. (1 balcony for each room and 1 for living room.</li>
+                                                        <li>Excellent ventilation, excellent view and natural lighting).</li>
+                                                        <li>24 hrs water supply.</li>
+                                                        <li>24 hrs Security and Electricity Backup.</li>
+                                                        <li>Covered Car Parking.</li>
                                                 </ul>
-                                                        
-                                                
                                         </div>
                                         <div class="view">
-                                                <a routerLink="../viewdetails">View Details</a>
+                                                <a (click)="openModal2(viewdetails,flatDetail.appId)">View Details</a>
                                         </div>
                                 </div>
 
@@ -96,7 +127,6 @@
                         </jw-pagination>
                 </div>
         </div>
-
         <div class="col-sm-12 col-lg-3 col-md-12 filter">
                 <div class="filter-head">
                         <span><i class="fa fa-filter" aria-hidden="true"></i> Filter</span>
@@ -124,8 +154,6 @@
                                                 <input (input)="getVals()" value="10" min="0" max="15" step="0.5"
                                                         type="range" class="slider">
                                         </div>
-
-
                                         <div class="range-val">
                                                 <span class="rangeValues">₹&nbsp;{{slide1}}</span>
                                                 <span class="rangeValues1">₹&nbsp;{{slide2}}</span>
@@ -141,8 +169,6 @@
                                                 <input (input)="getVals()" value="10" min="0" max="15" step="0.5"
                                                         type="range" class="slider">
                                         </div>
-
-
                                         <div class="range-val">
                                                 <span class="rangeValues">₹&nbsp;{{slide1}}</span>
                                                 <span class="rangeValues1">₹&nbsp;{{slide2}}</span>
@@ -167,14 +193,14 @@
                                         <label><input type="radio" id="checkbox-1-1" class="regular-checkbox"
                                                         name="phasing" />South East</label>
                                         <label><input type="radio" id="checkbox-1-1" class="regular-checkbox"
-                                                                name="phasing" checked/>North</label>
+                                                        name="phasing" checked />North</label>
                                 </div>
                         </div>
                         <div class="form-group request-form-field">
                                 <label for="exampleInputEmail1">Parking</label>
                                 <div class="check-opt">
                                         <label><input type="radio" id="checkbox-1-1" class="regular-checkbox"
-                                                        name="Parking" checked/>Public</label>
+                                                        name="Parking" checked />Public</label>
                                         <label><input type="radio" id="checkbox-1-1" class="regular-checkbox"
                                                         name="Parking" />Reserved</label>
                                 </div>
@@ -185,7 +211,7 @@
                                         <label><input type="radio" id="checkbox-1-1" class="regular-checkbox"
                                                         name="Furnishing" />Full</label>
                                         <label><input type="radio" id="checkbox-1-1" class="regular-checkbox"
-                                                        name="Furnishing" checked/>Semi</label>
+                                                        name="Furnishing" checked />Semi</label>
                                         <label><input type="radio" id="checkbox-1-1" class="regular-checkbox"
                                                         name="Furnishing" />No</label>
 
@@ -211,3 +237,220 @@
         </div>
 </ng-template>
 <!--Gallery pop up box-->
+<!--View Appartment Details pop up box-->
+<ng-template #viewdetails>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()"
+                style="padding-right: 6px;">
+                <span aria-hidden="true">&times;</span>
+        </button>
+        <div class="modal-body">
+                <div class="container-fluid np">
+
+                        <div class="col-sm-12 np">
+                                <div class="result-main1">
+                                        <!--if condition to display message when no reults found-->
+
+                                        <!--if condition to display message when no reults found-->
+                                        <div class="result-row">
+                                                <div class="flat-img">
+                                                        <img class="view-img" [src]="filteredList[0].appImage[3]">
+                                                        <span class="ima-count1"
+                                                                (click)="openModal1(gallery,filteredList[0].appId,filteredList[0].appName)"
+                                                                name="appname">{{filteredList[0].appImage.length}}
+                                                                Photos</span>
+                                                </div>
+                                                <div class="app-price">
+                                                        <span class="price"><span
+                                                                        class="rupee">₹&nbsp;</span>{{filteredList[0].price}}</span>
+                                                        <div><i class="fa fa-heart-o" aria-hidden="true"></i></div>
+                                                </div>
+                                                <div class="app-details" style="flex-basis: 60%">
+                                                        <div class="address">
+                                                                <span
+                                                                        class="f-add">{{filteredList[0]['appName']}}</span><span
+                                                                        class="rent">{{filteredList[0].rentType}}</span>
+                                                        </div>
+                                                        <div class="spec">
+
+                                                                <p class="ap-name">{{filteredList[0]['address']}} </p>
+                                                                <span class="spec-head">Specifications</span>
+                                                                <div class="spec-details">
+                                                                        <div class="spec-res-col">
+                                                                                <div class="spec-row">
+                                                                                        <div>
+                                                                                                <img class="spec-img"
+                                                                                                        src="../../assets/images/spec_icons/property_type.png">
+                                                                                        </div>
+                                                                                        <div class="spec-col">
+                                                                                                <span>Property
+                                                                                                        Type</span>
+                                                                                                <span>Home</span>
+                                                                                        </div>
+                                                                                </div>
+                                                                                <div class="spec-row">
+                                                                                        <div>
+                                                                                                <img class="spec-img"
+                                                                                                        src="../../assets/images/spec_icons/buit_up_area.png">
+                                                                                        </div>
+                                                                                        <div class="spec-col">
+                                                                                                <span>Built Up
+                                                                                                        Area</span>
+                                                                                                <span>2000 sq.ft</span>
+                                                                                        </div>
+                                                                                </div>
+                                                                        </div>
+                                                                        <div class="spec-res-col">
+                                                                                <div class="spec-row">
+                                                                                        <div>
+                                                                                                <img class="spec-img"
+                                                                                                        src="../../assets/images/spec_icons/floor.png">
+                                                                                        </div>
+                                                                                        <div class="spec-col">
+                                                                                                <span>Floors</span>
+                                                                                                <span>4 out of 4</span>
+                                                                                        </div>
+                                                                                </div>
+                                                                                <div class="spec-row">
+                                                                                        <div>
+                                                                                                <img class="spec-img"
+                                                                                                        src="../../assets/images/spec_icons/parking.png">
+                                                                                        </div>
+                                                                                        <div class="spec-col">
+                                                                                                <span>Car Parking</span>
+                                                                                                <span>Public</span>
+                                                                                        </div>
+                                                                                </div>
+                                                                        </div>
+                                                                        <div class="spec-res-col">
+                                                                                <div class="spec-row">
+                                                                                        <div>
+                                                                                                <img class="spec-img"
+                                                                                                        src="../../assets/images/spec_icons/furniture.png">
+                                                                                        </div>
+                                                                                        <div class="spec-col">
+                                                                                                <span>Furnishing</span>
+                                                                                                <span>Full</span>
+                                                                                        </div>
+                                                                                </div>
+                                                                                <div class="spec-row">
+                                                                                        <div>
+                                                                                                <img class="spec-img"
+                                                                                                        src="../../assets/images/spec_icons/bedrooms.png">
+                                                                                        </div>
+                                                                                        <div class="spec-col">
+                                                                                                <span>Bedrooms</span>
+                                                                                                <span>2</span>
+                                                                                        </div>
+                                                                                </div>
+                                                                        </div>
+                                                                        <div class="spec-res-col">
+                                                                                <div class="spec-row">
+                                                                                        <div>
+                                                                                                <img class="spec-img"
+                                                                                                        src="../../assets/images/spec_icons/bathrooms.png">
+                                                                                        </div>
+                                                                                        <div class="spec-col">
+                                                                                                <span>Bathrooms</span>
+                                                                                                <span>2</span>
+                                                                                        </div>
+                                                                                </div>
+                                                                                <div class="spec-row">
+                                                                                        <div>
+                                                                                                <img class="spec-img"
+                                                                                                        src="../../assets/images/spec_icons/facing.png">
+                                                                                        </div>
+                                                                                        <div class="spec-col">
+                                                                                                <span>Facing</span>
+                                                                                                <span>2</span>
+                                                                                        </div>
+                                                                                </div>
+                                                                        </div>
+
+                                                                </div>
+
+                                                        </div>
+                                                        <div>
+                                                                <span class="spec-head">Description</span>
+
+                                                                <p class="ap-desc">Spacious living room.
+                                                                        Separate washing/utility area
+                                                                        With all electrical fittings – Fans, curtain
+                                                                        rods, tube light,
+                                                                        Exhaust in bathroom and in Kitchen, Geyser etc.
+                                                                        Semi-Furnished
+                                                                        Modular Kitchen
+                                                                        Wardrobes in both rooms
+                                                                        Dressing table in master room
+                                                                        3 Balconies. (1 balcony for each room and 1 for
+                                                                        living room,
+                                                                        Excellent ventilation, excellent view and
+                                                                        natural lighting)
+                                                                        24 hrs water supply.
+                                                                        24 hrs Security and Electricity Backup.
+                                                                        Covered Car Parking
+                                                                </p>
+                                                        </div>
+                                                        <div class="view">
+                                                                <button class="cont-bt"
+                                                                        (click)="openModal3(contact)">Contact
+                                                                        now</button>
+                                                        </div>
+                                                </div>
+
+                                        </div>
+                                </div>
+                        </div>
+
+
+                </div>
+        </div>
+
+</ng-template>
+<!--View Appartment Details pop up box-->
+
+<!--Contact us pop up box-->
+<ng-template #contact id="contact_pop">
+        <div class="modal-header" style="background: #82808026">
+                <h4 class="modal-title" style="text-align:center">Contact Us</h4>
+                <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+                        <span aria-hidden="true">&times;</span>
+                </button>
+        </div>
+        <div class="modal-body">
+                <div class="container-fluid np" style="width:100%">
+                        <div class="col-sm-12 np">
+                                <div class="form-group request-form-field" style="width: 100%">
+                                        <label for="exampleInputEmail1">Name</label>
+                                        <input type="text" class="form-control" name="contact_name"
+                                                id="exampleInputEmail1" [(ngModel)]="contact_name"
+                                                #cameControl='ngModel' required>
+                                        <p class="alerts" *ngIf="cameControl.invalid && cameControl.touched">Name
+                                                field is required</p>
+                                </div>
+                                <div class="form-group request-form-field">
+                                        <label for="exampleInputEmail1">Email</label>
+                                        <input type="email" class="form-control" id="exampleInputEmail1"
+                                                name="contact_email" [(ngModel)]="contact_email"
+                                                #cemailControl='ngModel' class="form-control"
+                                                pattern="[a-zA-Z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" required>
+                                        <p class="alerts" *ngIf="cemailControl.invalid && cemailControl.touched">
+                                                Email-id is invalid</p>
+                                </div>
+                                <div class="form-group request-form-field">
+                                        <label for="exampleInputEmail1">Phone</label>
+                                        <input type="text" class="form-control" name="contact_Mobnumber"
+                                                id="exampleInputEmail1" style="padding-left: 33px;" minlength="10"
+                                                maxlength="10" [(ngModel)]="contact_Mobnumber" #cnumberControl="ngModel"
+                                                class="form-control pf" required (keypress)=_keyPress($event)>
+                                        <span _ngcontent-tmu-c4="" class="phoneformat1">+91</span>
+                                        <p type="tel" pattern="[0-9]+" class="alerts"
+                                                *ngIf="cnumberControl.invalid && cnumberControl.touched">Valid 10
+                                                digit mobile number is required</p>
+                                </div>
+                        </div>
+                        <!--contact details part-->
+                        <div><button class="cont-bt" (click)="sendContactDetails()">Contact Now</button></div>
+                </div>
+        </div>
+</ng-template>
+<!--Contact us pop up box-->
