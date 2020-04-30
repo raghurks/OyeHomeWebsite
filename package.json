@@ -28,7 +28,7 @@
     "angularfire2": "^5.2.1",
     "bootstrap": "^3.4.1",
     "firebase": "^7.2.1",
-    "jquery": "^3.4.1",
+    "jquery": "^3.5.0",
     "jquery-ui": "^1.12.1",
     "jw-angular-pagination": "^1.1.0",
     "ngx-bootstrap": "^5.2.0",
